@@ -21,7 +21,7 @@
 	url = https://github.com/keyboardio/Kaleidoscope
 [submodule "avr/libraries/Model01-Firmware"]
 	path = avr/libraries/Model01-Firmware
-	url = https://github.com/Keyboardio/Model01-Firmware
+	url = https://github.com/jjochen/Model01-Firmware
 [submodule "avr/libraries/Kaleidoscope-Hardware"]
 	path = avr/libraries/Kaleidoscope-Hardware
 	url = https://github.com/Keyboardio/Kaleidoscope-Hardware
@@ -31,3 +31,12 @@
 [submodule "avr/libraries/Kaleidoscope-Hardware-Virtual"]
 	path = avr/libraries/Kaleidoscope-Hardware-Virtual
 	url = https://github.com/keyboardio/Kaleidoscope-Hardware-Virtual
+[submodule "avr/libraries/Kaleidoscope-LEDEffect-DigitalRain"]
+	path = avr/libraries/Kaleidoscope-LEDEffect-DigitalRain
+	url = https://github.com/tremby/Kaleidoscope-LEDEffect-DigitalRain.git
+[submodule "avr/libraries/Kaleidoscope-LangPack-German"]
+	path = avr/libraries/Kaleidoscope-LangPack-German
+	url = git@github.com:jjochen/Kaleidoscope-LangPack-German.git
+[submodule "avr/libraries/Kaleidoscope-LEDToggle"]
+	path = avr/libraries/Kaleidoscope-LEDToggle
+	url = git@github.com:jjochen/Kaleidoscope-LEDToggle.git
