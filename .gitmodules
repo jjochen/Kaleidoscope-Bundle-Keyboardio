@@ -18,10 +18,10 @@
 	url = https://github.com/keyboardio/Arduino-HID
 [submodule "avr/libraries/Kaleidoscope"]
 	path = avr/libraries/Kaleidoscope
-	url = https://github.com/keyboardio/Kaleidoscope
+	url=git@github.com:jjochen/Kaleidoscope.git
 [submodule "avr/libraries/Model01-Firmware"]
 	path = avr/libraries/Model01-Firmware
-	url = https://github.com/jjochen/Model01-Firmware
+	url = git@github.com:jjochen//Model01-Firmware.git
 [submodule "avr/libraries/Kaleidoscope-Hardware"]
 	path = avr/libraries/Kaleidoscope-Hardware
 	url = https://github.com/Keyboardio/Kaleidoscope-Hardware
