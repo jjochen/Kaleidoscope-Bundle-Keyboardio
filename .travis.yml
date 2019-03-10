@@ -20,8 +20,10 @@ notifications:
   email:
     on_success: change
     on_failure: change
-cache:
+cache: 
   ccache: true
+  directories:
+    - .ccache
 addons:
   apt:
     packages:
