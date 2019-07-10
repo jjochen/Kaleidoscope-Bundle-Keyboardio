@@ -29,13 +29,34 @@ void initVariant() { }
 void setupUSB() __attribute__((weak));
 void setupUSB() { }
 
+void parseCommandLine(int argc, char* argv[]) __attribute__((weak));
+void parseCommandLine(int argc, char* argv[]) { }
+
+// This function can be overridden in other libraries
+// e.g. to run a testing framework.
+//
+__attribute__((weak))
+extern void executeTestFunction();
+
 void init(void) {
   // Arduino core does some device-related setup here.
   // We don't need to do anything.
 }
 
 int main(int argc, char* argv[]) {
+   
+   // Enable consumer code to read command line args.
+   //
+   parseCommandLine(argc, argv);
+   
   if (!initVirtualInput(argc, argv)) return 1;
+  
+  if(testFunctionExecutionRequested()) {
+     if(executeTestFunction) {
+        executeTestFunction();
+     }
+     return 0;
+  }
 
   init();
   initVariant();
@@ -51,4 +72,3 @@ int main(int argc, char* argv[]) {
 
   return 0;
 }
-
