@@ -2,7 +2,7 @@
 # For more info:
 # https://github.com/arduino/Arduino/wiki/Arduino-IDE-1.5-3rd-party-Hardware-specification
 
-name=Keyboardio Keyboards
+name=BETA Virtualized Kaleidoscope Keyboards (for developers)
 version=1.6.11
 
 # This file is for "virtual" hardware which means we compile the sketch for
@@ -16,13 +16,13 @@ compiler.warning_flags.all=-Wall -Wextra
 
 compiler.path=
 compiler.c.cmd=gcc
-compiler.c.flags=-c -g {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -MMD
+compiler.c.flags=-c -g {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -MMD -DKALEIDOSCOPE_VIRTUAL_BUILD=1 -DKEYBOARDIOHID_BUILD_WITHOUT_HID=1 -DUSBCON=dummy -DARDUINO_ARCH_AVR=1
 compiler.c.elf.flags={compiler.warning_flags} -Wl,--gc-sections
 compiler.c.elf.flags_join_archives=rcT
 compiler.c.elf.cmd=g++
 compiler.S.flags=-c -g -x assembler-with-cpp
 compiler.cpp.cmd=g++
-compiler.cpp.flags=-c -g {compiler.warning_flags} -std=gnu++11 -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD  -DKALEIDOSCOPE_VIRTUAL_BUILD=1 -DKEYBOARDIOHID_BUILD_WITHOUT_HID=1 -DKALEIDOSCOPE_HARDWARE_H="Kaleidoscope-Hardware-Virtual.h" -DUSBCON=dummy -DARDUINO_ARCH_AVR=1
+compiler.cpp.flags=-c -g {compiler.warning_flags} -std=gnu++11 -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD  -DKALEIDOSCOPE_VIRTUAL_BUILD=1 -DKEYBOARDIOHID_BUILD_WITHOUT_HID=1 -DUSBCON=dummy -DARDUINO_ARCH_AVR=1
 compiler.ar.cmd=ar
 compiler.ar.flags=rcs
 compiler.objcopy.cmd=objcopy
@@ -168,3 +168,25 @@ tools.rm_end.cmd.windows= ; exit 0
 # - from numeric vendor ID, set to Unknown otherwise
 build.usb_manufacturer="Unknown"
 build.usb_flags=-DUSB_VID={build.vid} -DUSB_PID={build.pid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT={build.usb_product}'
+
+# ctags configuration
+# Remove from the Arduino core in 1.8.10.
+# Jesse isn't sure why arduino removed it, but adding it here for now to unbreak builds
+# ------------------------------
+tools.ctags.path={runtime.tools.ctags.path}
+tools.ctags.cmd.path={path}/ctags
+tools.ctags.pattern="{cmd.path}" -u --language-force=c++ -f - --c++-kinds=svpf --fields=KSTtzns --line-directives "{source_file}"
+
+# The following recipes enable adding code to specific places
+# of the preprocessed firmware sketch. This is done by pasting 
+# the content of two files
+#   kaleidoscope_internal/sketch_preprocessing/sketch_header.h,
+#   kaleidoscope_internal/sketch_preprocessing/sketch_footer.h
+# to the top and the bottom of the preprocessed sketch file.
+
+recipe.hooks.sketch.prebuild.1.pattern=mv "{build.path}/sketch/{build.project_name}.cpp" "{build.path}/sketch/{build.project_name}.cpp.bak"
+recipe.hooks.sketch.prebuild.2.pattern=sh -c "cat {runtime.platform.path}/libraries/Kaleidoscope/src/kaleidoscope_internal/sketch_preprocessing/sketch_header.h {build.path}/sketch/{build.project_name}.cpp.bak {runtime.platform.path}/libraries/Kaleidoscope/src/kaleidoscope_internal/sketch_preprocessing/sketch_footer.h > {build.path}/sketch/{build.project_name}.cpp"
+
+recipe.hooks.sketch.prebuild.1.pattern.windows={tools.rm_start.cmd} "{build.path}/sketch/{build.project_name}.cpp.bak" {tools.rm_end.cmd}
+recipe.hooks.sketch.prebuild.2.pattern.windows=powershell.exe mv "{build.path}/sketch/{build.project_name}.cpp" "{build.path}/sketch/{build.project_name}.cpp.bak"
+recipe.hooks.sketch.prebuild.3.pattern.windows=powershell.exe -command "& {&cat {runtime.platform.path}/libraries/Kaleidoscope/src/kaleidoscope_internal/sketch_preprocessing/sketch_header.h, {build.path}/sketch/{build.project_name}.cpp.bak, {runtime.platform.path}/libraries/Kaleidoscope/src/kaleidoscope_internal/sketch_preprocessing/sketch_footer.h | sc {build.path}/sketch/{build.project_name}.cpp}"
