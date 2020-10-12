@@ -31,3 +31,6 @@
 [submodule "avr/libraries/Kaleidoscope-Xcode-Shortcuts"]
 	path = avr/libraries/Kaleidoscope-Xcode-Shortcuts
 	url = https://github.com/jjochen/Kaleidoscope-Xcode-Shortcuts
+[submodule "avr/libraries/Kaleidoscope-Config"]
+	path = avr/libraries/Kaleidoscope-Config
+	url = https://github.com/jjochen/Kaleidoscope-Config
