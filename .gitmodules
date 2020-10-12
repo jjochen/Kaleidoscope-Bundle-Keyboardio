@@ -28,3 +28,6 @@
 [submodule "avr/libraries/Kaleidoscope-LangPack-German"]
 	path = avr/libraries/Kaleidoscope-LangPack-German
 	url = https://github.com/jjochen/Kaleidoscope-LangPack-German.git
+[submodule "avr/libraries/Kaleidoscope-Xcode-Shortcuts"]
+	path = avr/libraries/Kaleidoscope-Xcode-Shortcuts
+	url = https://github.com/jjochen/Kaleidoscope-Xcode-Shortcuts
