@@ -34,3 +34,6 @@
 [submodule "avr/libraries/Kaleidoscope-Config"]
 	path = avr/libraries/Kaleidoscope-Config
 	url = https://github.com/jjochen/Kaleidoscope-Config
+[submodule "avr/libraries/Atreus-Firmware"]
+	path = avr/libraries/Atreus-Firmware
+	url = https://github.com/jjochen/Atreus-Firmware
